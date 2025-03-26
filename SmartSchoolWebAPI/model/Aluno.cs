@@ -7,9 +7,10 @@ namespace SmartSchoolWebAPI.model
 {
     public class Aluno
     {
-        public Aluno(int id, string sobrenome, string telefone) 
+        public Aluno(int id, string nome, string sobrenome, string telefone) 
         {
             this.Id = id;
+            this.Nome = nome;
             this.Sobrenome = sobrenome;
             this.Telefone = telefone;
         }
