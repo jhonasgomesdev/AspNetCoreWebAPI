@@ -14,9 +14,12 @@ namespace SmartSchoolWebAPI.Controllers
     public class ProfessorController : ControllerBase
     {
         private readonly SmartContext _context;
+        private readonly IRepository _repo;
         
-        public ProfessorController(SmartContext context)
+        public ProfessorController(SmartContext context,
+                                   IRepository repo)
         {
+            _repo = repo;
             _context = context;
         }
 
@@ -68,9 +71,10 @@ namespace SmartSchoolWebAPI.Controllers
         [HttpPost]
         public IActionResult Post(Professor professor)
         {
-            _context.Add(professor);
-            _context.SaveChanges();
-            return Ok(professor);
+            _repo.Add(professor);
+            if(_repo.SaveChanges())
+                return Ok(professor);
+            return BadRequest("Professor não cadastrado!");
         }
         [HttpPut("{id}")]
         public IActionResult Put(int id, Professor professor)
@@ -78,9 +82,11 @@ namespace SmartSchoolWebAPI.Controllers
             var prof = _context.Professores.AsNoTracking().FirstOrDefault(p => p.Id == id);
             if(prof == null)
                 return BadRequest("Professor não encontrado!");
-            _context.Update(professor);
-            _context.SaveChanges();
-            return Ok(professor);
+            
+            _repo.Update(professor);
+            if(_repo.SaveChanges())
+                return Ok(professor);
+            return BadRequest("Professor não atualizado!");
         }
         [HttpPatch("{id}")]
         public IActionResult Patch(int id, Professor professor)
@@ -88,9 +94,11 @@ namespace SmartSchoolWebAPI.Controllers
             var prof = _context.Professores.AsNoTracking().FirstOrDefault(p => p.Id == id);
             if (prof == null)
                 return BadRequest("Professor não encontrado!");
-            _context.Update(professor);
-            _context.SaveChanges();
-            return Ok(professor);
+            
+            _repo.Update(professor);
+            if(_repo.SaveChanges())
+                return Ok(professor);
+            return BadRequest("Professor não atualizado!");
         }
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
@@ -98,9 +106,11 @@ namespace SmartSchoolWebAPI.Controllers
             var professor = _context.Professores.FirstOrDefault(p => p.Id == id);
             if(professor == null)
                 return BadRequest("Professor não encontrado!");
-            _context.Remove(professor);
-            _context.SaveChanges();
-            return Ok();
+           
+           _repo.Delete(professor);
+            if(_repo.SaveChanges())
+                return Ok("Professor deletado!");
+            return BadRequest("Professor não deletado!");
         }
     }
 }
