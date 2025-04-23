@@ -3,22 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SmartSchoolWebAPI.model
+namespace SmartSchoolWebAPI.Dtos
 {
-    public class Professor
+    public class ProfessorRegistrarDto
     {
-        public Professor(int id,
-                        int registro,
-                        string nome,
-                        string sobrenome) 
-        {
-            this.Id = id;
-            this.Registro = registro;
-            this.Nome = nome;
-            this.Sobrenome = sobrenome;
-   
-        }
-        public Professor(){ }
         public int Id { get; set; }
         public int Registro { get; set; }
         public string Nome { get; set; }
@@ -27,6 +15,5 @@ namespace SmartSchoolWebAPI.model
         public DateTime DataDeRegistro { get; set; } = DateTime.Now;
         public DateTime? DataDeEncerramento { get; set; } = null;
         public bool Ativo { get; set; } = true;
-        public IEnumerable<Disciplina> Disciplinas { get; set; }
     }
 }
