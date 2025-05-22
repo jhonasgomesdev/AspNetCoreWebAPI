@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using SmartSchoolWebAPI.Dtos;
+using SmartSchoolWebAPI.V1.Dtos;
 using SmartSchoolWebAPI.model;
+using SmartSchoolWebAPI.Helpers;
 
-namespace SmartSchoolWebAPI.Helpers
+namespace SmartSchoolWebAPI.V1.Profiles
 {
     public class SmartSchoolProfile : Profile
     {

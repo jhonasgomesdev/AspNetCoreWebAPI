@@ -1,0 +1,251 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>SmartSchoolWebAPI</name>
+    </assembly>
+    <members>
+        <member name="T:SmartSchoolWebAPI.V1.Controllers.AlunoController">
+            <summary>
+            Controller responsável por gerenciar as operações relacionadas aos alunos.
+            </summary>
+        </member>
+        <member name="M:SmartSchoolWebAPI.V1.Controllers.AlunoController.#ctor(SmartSchoolWebAPI.Data.IRepository,AutoMapper.IMapper)">
+            <summary>
+            Construtor da classe AlunoController.
+            </summary>
+            <param name="repo">Repositório de acesso aos dados.</param>
+            <param name="mapper">Serviço de mapeamento de objetos.</param>
+        </member>
+        <member name="M:SmartSchoolWebAPI.V1.Controllers.AlunoController.Get">
+             <summary>
+             Retorna todos os alunos cadastrados no sistema.
+             </summary>
+             <remarks>
+             Exemplo de requisição:
+            
+                 GET /api/aluno
+            
+             </remarks>
+             <returns>Lista de alunos.</returns>
+             <response code="200">Retorna a lista de alunos</response>
+             <response code="500">Erro interno no servidor</response>
+        </member>
+        <member name="M:SmartSchoolWebAPI.V1.Controllers.AlunoController.GetById(System.Int32)">
+            <summary>
+            Retorna os dados de um aluno específico através do ID.
+            </summary>
+            <param name="id">Identificador do aluno.</param>
+            <returns>Dados do aluno correspondente.</returns>
+            <response code="200">Retorna os dados do aluno</response>
+            <response code="400">Aluno não encontrado</response>
+            <response code="500">Erro interno no servidor</response> 
+        </member>
+        <member name="M:SmartSchoolWebAPI.V1.Controllers.AlunoController.Post(SmartSchoolWebAPI.V1.Dtos.AlunoRegistrarDto)">
+            <summary>
+            Cria um novo aluno no sistema.
+            </summary>
+            <param name="model">Dados para o cadastro do aluno.</param>
+            <returns>Dados do aluno criado.</returns>
+            <response code="201">Aluno criado com sucesso</response>
+            <response code="400">Dados inválidos</response>
+            <response code="500">Erro interno no servidor</response>
+        </member>
+        <member name="M:SmartSchoolWebAPI.V1.Controllers.AlunoController.Put(System.Int32,SmartSchoolWebAPI.V1.Dtos.AlunoRegistrarDto)">
+            <summary>
+            Atualiza completamente os dados de um aluno existente.
+            </summary>
+            <param name="id">Identificador do aluno a ser atualizado.</param>
+            <param name="model">Novos dados do aluno.</param>
+            <returns>Dados do aluno atualizado.</returns>
+            <response code="201">Aluno atualizado com sucesso</response>
+            <response code="400">Aluno não encontrado ou dados inválidos</response>
+            <response code="500">Erro interno no servidor</response>
+        </member>
+        <member name="M:SmartSchoolWebAPI.V1.Controllers.AlunoController.Patch(System.Int32,SmartSchoolWebAPI.V1.Dtos.AlunoRegistrarDto)">
+            <summary>
+            Atualiza parcialmente os dados de um aluno existente.
+            </summary>
+            <param name="id">Identificador do aluno a ser atualizado.</param>
+            <param name="model">Dados parciais do aluno.</param>
+            <returns>Dados do aluno atualizado.</returns>
+            <response code="201">Aluno atualizado com sucesso</response>
+            <response code="400">Aluno não encontrado ou dados inválidos</response>
+            <response code="500">Erro interno no servidor</response>
+        </member>
+        <member name="M:SmartSchoolWebAPI.V1.Controllers.AlunoController.Delete(System.Int32)">
+            <summary>
+            Exclui um aluno do sistema.
+            </summary>
+            <param name="id">Identificador do aluno a ser excluído.</param>
+            <response code="204">Aluno excluído com sucesso</response>
+            <response code="400">Aluno não encontrado</response>
+            <response code="500">Erro interno no servidor</response>  
+        </member>
+        <member name="T:SmartSchoolWebAPI.V1.Controllers.ProfessorController">
+            <summary>
+            Controller responsável por gerenciar operações relacionadas aos professores.
+            </summary>
+        </member>
+        <member name="M:SmartSchoolWebAPI.V1.Controllers.ProfessorController.#ctor(SmartSchoolWebAPI.Data.IRepository,AutoMapper.IMapper)">
+            <summary>
+            Construtor da classe ProfessorController.
+            </summary>
+            <param name="repo">Repositório de acesso aos dados.</param>
+            <param name="mapper">Serviço de mapeamento de objetos.</param>
+        </member>
+        <member name="M:SmartSchoolWebAPI.V1.Controllers.ProfessorController.Get">
+            <summary>
+            Retorna todos os professores cadastrados.
+            </summary>
+            <returns>Lista de professores.</returns>
+            <response code="200">Retorna a lista de professores.</response>
+            <response code="500">Erro interno no servidor.</response>
+        </member>
+        <member name="M:SmartSchoolWebAPI.V1.Controllers.ProfessorController.GetById(System.Int32)">
+            <summary>
+            Retorna os dados de um professor específico pelo ID.
+            </summary>
+            <param name="id">Identificador do professor.</param>
+            <returns>Dados do professor.</returns>
+            <response code="200">Retorna os dados do professor.</response>
+            <response code="400">Professor não encontrado.</response>
+            <response code="500">Erro interno no servidor.</response>
+        </member>
+        <member name="M:SmartSchoolWebAPI.V1.Controllers.ProfessorController.Post(SmartSchoolWebAPI.V1.Dtos.ProfessorRegistrarDto)">
+            <summary>
+            Cria um novo professor no sistema.
+            </summary>
+            <param name="model">Dados para o cadastro do professor.</param>
+            <returns>Dados do professor criado.</returns>
+            <response code="201">Professor criado com sucesso.</response>
+            <response code="400">Dados inválidos.</response>
+            <response code="500">Erro interno no servidor.</response>
+        </member>
+        <member name="M:SmartSchoolWebAPI.V1.Controllers.ProfessorController.Put(System.Int32,SmartSchoolWebAPI.V1.Dtos.ProfessorRegistrarDto)">
+            <summary>
+            Atualiza completamente os dados de um professor.
+            </summary>
+            <param name="id">Identificador do professor.</param>
+            <param name="model">Novos dados do professor.</param>
+            <returns>Dados do professor atualizado.</returns>
+            <response code="201">Professor atualizado com sucesso.</response>
+            <response code="400">Professor não encontrado ou dados inválidos.</response>
+            <response code="500">Erro interno no servidor.</response>
+        </member>
+        <member name="M:SmartSchoolWebAPI.V1.Controllers.ProfessorController.Patch(System.Int32,SmartSchoolWebAPI.V1.Dtos.ProfessorRegistrarDto)">
+            <summary>
+            Atualiza parcialmente os dados de um professor.
+            </summary>
+            <param name="id">Identificador do professor.</param>
+            <param name="model">Dados parciais do professor.</param>
+            <returns>Dados do professor atualizado.</returns>
+            <response code="201">Professor atualizado com sucesso.</response>
+            <response code="400">Professor não encontrado ou dados inválidos.</response>
+            <response code="500">Erro interno no servidor.</response>
+        </member>
+        <member name="M:SmartSchoolWebAPI.V1.Controllers.ProfessorController.Delete(System.Int32)">
+            <summary>
+            Exclui um professor do sistema.
+            </summary>
+            <param name="id">Identificador do professor.</param>
+            <response code="204">Professor excluído com sucesso.</response>
+            <response code="400">Professor não encontrado.</response>
+            <response code="500">Erro interno no servidor.</response>
+        </member>
+        <member name="T:SmartSchoolWebAPI.V1.Dtos.AlunoRegistrarDto">
+            <summary>
+            DTO utilizado para o registro de um aluno.
+            </summary>
+        </member>
+        <member name="P:SmartSchoolWebAPI.V1.Dtos.AlunoRegistrarDto.Id">
+            <summary>
+            Identificador único do aluno.
+            </summary>
+        </member>
+        <member name="P:SmartSchoolWebAPI.V1.Dtos.AlunoRegistrarDto.Matricula">
+            <summary>
+            Número de matrícula do aluno.
+            </summary>
+        </member>
+        <member name="P:SmartSchoolWebAPI.V1.Dtos.AlunoRegistrarDto.Nome">
+            <summary>
+            Primeiro nome do aluno.
+            </summary>
+        </member>
+        <member name="P:SmartSchoolWebAPI.V1.Dtos.AlunoRegistrarDto.Sobrenome">
+            <summary>
+            Sobrenome do aluno.
+            </summary>
+        </member>
+        <member name="P:SmartSchoolWebAPI.V1.Dtos.AlunoRegistrarDto.Telefone">
+            <summary>
+            Número de telefone para contato do aluno.
+            </summary>
+        </member>
+        <member name="P:SmartSchoolWebAPI.V1.Dtos.AlunoRegistrarDto.DataDeNascimento">
+            <summary>
+            Data de nascimento do aluno.
+            </summary>
+        </member>
+        <member name="P:SmartSchoolWebAPI.V1.Dtos.AlunoRegistrarDto.DataDeMatricula">
+            <summary>
+            Data em que o aluno foi matriculado. Valor padrão: data e hora atuais.
+            </summary>
+        </member>
+        <member name="P:SmartSchoolWebAPI.V1.Dtos.AlunoRegistrarDto.DataDeEncerramento">
+            <summary>
+            Data de encerramento da matrícula do aluno, caso exista.
+            </summary>
+        </member>
+        <member name="P:SmartSchoolWebAPI.V1.Dtos.AlunoRegistrarDto.Ativo">
+            <summary>
+            Indica se o aluno está ativo. Valor padrão: true.
+            </summary>
+        </member>
+        <member name="T:SmartSchoolWebAPI.V1.Dtos.ProfessorRegistrarDto">
+            <summary>
+            DTO utilizado para o registro de um professor.
+            </summary>
+        </member>
+        <member name="P:SmartSchoolWebAPI.V1.Dtos.ProfessorRegistrarDto.Id">
+            <summary>
+            Identificador único do professor.
+            </summary>
+        </member>
+        <member name="P:SmartSchoolWebAPI.V1.Dtos.ProfessorRegistrarDto.Registro">
+            <summary>
+            Número de registro funcional do professor.
+            </summary>
+        </member>
+        <member name="P:SmartSchoolWebAPI.V1.Dtos.ProfessorRegistrarDto.Nome">
+            <summary>
+            Primeiro nome do professor.
+            </summary>
+        </member>
+        <member name="P:SmartSchoolWebAPI.V1.Dtos.ProfessorRegistrarDto.Sobrenome">
+            <summary>
+            Sobrenome do professor.
+            </summary>
+        </member>
+        <member name="P:SmartSchoolWebAPI.V1.Dtos.ProfessorRegistrarDto.Telefone">
+            <summary>
+            Número de telefone para contato do professor.
+            </summary>
+        </member>
+        <member name="P:SmartSchoolWebAPI.V1.Dtos.ProfessorRegistrarDto.DataDeRegistro">
+            <summary>
+            Data em que o professor foi registrado. Valor padrão: data e hora atuais.
+            </summary>
+        </member>
+        <member name="P:SmartSchoolWebAPI.V1.Dtos.ProfessorRegistrarDto.DataDeEncerramento">
+            <summary>
+            Data de encerramento do vínculo do professor, caso exista.
+            </summary>
+        </member>
+        <member name="P:SmartSchoolWebAPI.V1.Dtos.ProfessorRegistrarDto.Ativo">
+            <summary>
+            Indica se o professor está ativo. Valor padrão: true.
+            </summary>
+        </member>
+    </members>
+</doc>
