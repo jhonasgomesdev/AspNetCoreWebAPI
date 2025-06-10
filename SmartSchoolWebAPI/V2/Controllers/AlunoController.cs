@@ -6,17 +6,17 @@ using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SmartSchoolWebAPI.Data;
-using SmartSchoolWebAPI.V1.Dtos;
+using SmartSchoolWebAPI.V2.Dtos;
 using SmartSchoolWebAPI.model;
 using SmartSchoolWebAPI.Helpers;
 
-namespace SmartSchoolWebAPI.V1.Controllers
+namespace SmartSchoolWebAPI.V2.Controllers
 {
     /// <summary>
     /// Controller responsável por gerenciar as operações relacionadas aos alunos.
     /// </summary>
     [ApiController]
-    [ApiVersion("1.0")]
+    [ApiVersion("2.0")]
     [Route("api/v{version:apiVersion}/[controller]")]
     public class AlunoController : ControllerBase
     {
@@ -47,10 +47,13 @@ namespace SmartSchoolWebAPI.V1.Controllers
         /// <response code="200">Retorna a lista de alunos</response>
         /// <response code="500">Erro interno no servidor</response>
         [HttpGet]
-        public IActionResult Get()
+        public async Task<IActionResult> Get([FromQuery]PageParams pageParams)
         {
-            var alunos =  _repo.GetAllAlunos(true);
-            return Ok(_mapper.Map<IEnumerable<AlunoDto>>(alunos));
+            var alunos = await _repo.GetAllAlunosAsync(pageParams, true);
+            var alunosResult = _mapper.Map<IEnumerable<AlunoDto>>(alunos);
+            Response.AddPagination(alunos.CurrentPage, alunos.PageSize, alunos.TotalCount, alunos.TotalPages);
+
+            return Ok(alunosResult);
         }
 
         /// <summary>

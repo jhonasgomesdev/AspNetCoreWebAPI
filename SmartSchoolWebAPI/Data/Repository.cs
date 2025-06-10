@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection.Metadata;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using SmartSchoolWebAPI.Helpers;
 using SmartSchoolWebAPI.model;
 using SQLitePCL;
 
@@ -34,6 +35,71 @@ namespace SmartSchoolWebAPI.Data
         public bool SaveChanges()
         {
             return (_context.SaveChanges() > 0 );
+        }
+
+        public async Task<PageList<Aluno>> GetAllAlunosAsync(
+            PageParams pageParams,
+            bool includeProfessor = false)
+        {
+            IQueryable<Aluno> query = _context.Alunos;
+            
+            if(includeProfessor)
+            {
+                query = query.Include(a => a.AlunosDisciplinas)
+                                        .ThenInclude(ad => ad.Disciplina)
+                                        .ThenInclude(d => d.Professor);
+            }
+            
+            query = query.AsNoTracking().OrderBy(a => a.Id);
+
+            if(!string.IsNullOrEmpty(pageParams.Nome))
+            {
+                
+
+                query = query.Where(aluno => aluno.Nome
+                                                  .ToUpper()
+                                                  .Contains(pageParams.Nome.ToUpper()) ||
+                                            aluno.Sobrenome
+                                                  .ToUpper()
+                                                  .Contains(pageParams.Nome.ToUpper()));
+            }
+
+            if(pageParams.Matricula > 0)
+            {
+                query = query.Where(aluno => aluno.Matricula == pageParams.Matricula);
+            }
+
+            if (pageParams.Ativo != null)
+            {
+                query = query.Where(aluno => aluno.Ativo == (pageParams.Ativo != 0));
+            }
+
+            if (pageParams.OrderByNome != null)
+            {
+                pageParams.OrderByMatricula = null;
+                pageParams.OrderByAtivo = null;
+                query = pageParams.OrderByNome == true
+                    ? query.OrderBy(aluno => aluno.Nome)
+                    : query.OrderByDescending(aluno => aluno.Nome);
+            }
+            else if (pageParams.OrderByAtivo != null)
+            {
+                pageParams.OrderByNome = null;
+                pageParams.OrderByMatricula = null;
+                query = pageParams.OrderByAtivo == false
+                    ? query.OrderBy(aluno => aluno.Ativo)
+                    : query.OrderByDescending(aluno => aluno.Ativo);
+            }
+            else if (pageParams.OrderByMatricula != null)
+            {
+                pageParams.OrderByNome = null;
+                pageParams.OrderByAtivo = null;
+                query = pageParams.OrderByMatricula == true
+                    ? query.OrderBy(aluno => aluno.Matricula)
+                    : query.OrderByDescending(aluno => aluno.Matricula);
+            }
+
+            return await PageList<Aluno>.CreateAsync(query, pageParams.pageNumber, pageParams.PageSize);
         }
 
         public Aluno[] GetAllAlunos(bool includeProfessor = false)
