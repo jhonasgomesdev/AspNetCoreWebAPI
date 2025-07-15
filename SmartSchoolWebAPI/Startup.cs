@@ -17,6 +17,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using SmartSchoolWebAPI.Data;
+using System.Globalization;
+using Microsoft.AspNetCore.Localization;
 
 namespace SmartSchool.WebAPI
 {
@@ -33,7 +35,7 @@ namespace SmartSchool.WebAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<SmartContext>(
-                context => context.UseSqlite(Configuration.GetConnectionString("Default"))
+                context => context.UseMySql(Configuration.GetConnectionString("MySqlConnection"))
             );
 
             services.AddControllers()
@@ -100,6 +102,19 @@ namespace SmartSchool.WebAPI
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            var defaultCulture = new CultureInfo("pt-BR");
+            var localizationOptions = new RequestLocalizationOptions
+            {
+                DefaultRequestCulture = new RequestCulture(defaultCulture),
+                SupportedCultures = new List<CultureInfo> { defaultCulture },
+                SupportedUICultures = new List<CultureInfo> { defaultCulture }
+            };
+
+            CultureInfo.DefaultThreadCurrentCulture = defaultCulture;
+            CultureInfo.DefaultThreadCurrentUICulture = defaultCulture;
+
+            app.UseRequestLocalization(localizationOptions);
 
             // app.UseHttpsRedirection();
 

@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using SmartSchoolWebAPI.Helpers;
 using SmartSchoolWebAPI.model;
-using SQLitePCL;
 
 namespace SmartSchoolWebAPI.Data
 {
